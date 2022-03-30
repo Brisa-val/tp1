@@ -1,33 +1,32 @@
 <?php
 class cafetera{
-    private $capacidadMxima;
+    private $capacidadMaxima;
     private $cantidadActual;
 
     public function getCantidadActual(){
         return $this->capacidadActual;
     }
     public function getCapacidadMaxima(){
-        return $this->capacidadMxima;
+        return $this->capacidadMaxima;
     }
 
 
     public function setCantidadActual($cantidadActual){
         $this->cantidadActual=$cantidadActual;
     }
-    public function setCapacidadMaxima($capacidadMxima){
-        $this->capacidadMxima=$capacidadMxima;
+    public function setCapacidadMaxima($capacidadMaxima){
+        $this->capacidadMaxima = $capacidadMaxima;
     }
-    public function __construct($cantidadActual,$cantidadMaxima)
-    {
+    public function __construct($cantidadActual,$cantidadMaxima){
         $this->cantidadActual=$cantidadActual;
-        $this->capacidadMxima=$cantidadMaxima;
+        $this->capacidadMaxima=$cantidadMaxima;
     }
     public function llenarCafetera(){
         $this->setCantidadActual($this-> getCapacidadMaxima());
     }
     public function servirTaza($cantidad){
         if ($this->getCantidadActual()<$cantidad){
-            $mensaje="solamente se pudo llenar".$this->getCantidadActual()."mm de la taza ya que falta cafe:(";
+            $mensaje="solamente se pudo llenar".$this->getCantidadActual()."me de la taza ya que falta cafe:(";
             $this->setCantidadActual(0);
             }else{
                 $mensaje="la taza se ha llenado:)";
