@@ -1,39 +1,39 @@
 <?php
-include_once "claseLogin.php";
-$objLogin = new Login('pepe','eelcdpepe','de quien es la clave ? ');
-echo $objLogin;
+include_once 'claseLogin.php';
+$contrasenias = array();
+for ($i = 0; $i < 4; $i++) {
+    echo "\nIngrese contraseña " . $i . ": ";
+    $contrasenias[$i] = trim(fgets(STDIN));
+}
 
-if ($objLogin->cambiarContrasenia('eelc2','de quien es la clave 2 ? '))
-	echo "\n La contraseña se actualizo correctamente";
-else 
-	echo "\n No fue posible actualizar la contraseña";
+$nombre = "Pablo";
 
-if ($objLogin->cambiarContrasenia('eelc2','de quien es la clave 2 ? '))
-	echo "\n La contraseña se actualizo correctamente";
-else
-	echo "\n No fue posible actualizar la contraseña";
+$frase = "Día, mes y año de tu cumpleaños";
 
-if (!$objLogin->validarContraseña("cualquier pass "))
-	echo "\n Error Login: La contraseña ingresada no coincide";
+$l = new Login($nombre, $contrasenias, 0, $frase);
 
-if ($objLogin->validarContraseña("eelc2"))
-	echo "\n Login: La contraseña ingresada  coincide";
+do {
+    echo "\n" . $l->recordar($nombre);
+    echo "\nIngrese contraseña:";
+    $contrasenia = trim(fgets(STDIN));
+} while (!($l->comprobarPassword($contrasenia)));
 
-if( $objLogin->cambiarContrasenia('eelc3','de quien es la clave ? 3'))
-	echo "\n La contraseña se actualizo correctamente";
-else
-	echo " \n No fue posible actualizar la contraseña";
+echo "\nCAMBIAR CONTRASEÑA? (s/n):";
+$seguir = trim(fgets(STDIN));
+while ($seguir == "s") {
+// cambiar
+    echo "\nIngrese nueva contraseña: ";
+    $nuevaContrasenia = trim(fgets(STDIN));
+    if ($l->comprobarPassword($nuevaContrasenia)) {
+        echo "\nEXISTE\n";
+    } else {
+        //echo "\nNO EXISTE";
+        $r = $l->cambiarPassword($nuevaContrasenia);
+        echo "\nContraseña cambiada exitosamente!\n";
+        print_r($l->getPasswordAnterior());
+    }
+    echo "\nCAMBIAR CONTRASEÑA? (s/n):";
+    $seguir = trim(fgets(STDIN));
+}
 
-if($objLogin->cambiarContrasenia('eelc4','de quien es la clave ? 4'))
-	echo "\n La contraseña se actualizo correctamente";
-else
-	echo "\n No fue posible actualizar la contraseña";
-
-echo $objLogin;
-
-if($objLogin->cambiarContrasenia('eelc5','de quien es la clave ? 5'))
-	echo " \n La contraseña se actualizo correctamente";
-else
-	echo "\n No fue posible actualizar la contraseña";
-
-echo $objLogin;
+echo $l->__toString();
