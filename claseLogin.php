@@ -1,94 +1,101 @@
 <?php
 class Login{
-	private $nombreUsuario;
-	private $contrasenia;
-	private $frase_pass;
-	private $ultimas_4pass;
-	
-	public function __construct($usu,$pass,$frase){
-		$this->nombreUsuario =$usu;
-		$this->contrasenia=$pass;
-		$this->frase_pass=$frase;
-		$this->ultimas_4pass= array();
-		array_push($this->ultimas_4pass,$pass);
-		
-	}
-	
-	public function  setContrasenia($param){
-		$this->contrasenia=$param;
-		
-	}
-	public function getContrasenia(){
-		return $this->contrasenia;
-	}
-	
-	public function getUltimas_4pass(){
-		return  $this->ultimas_4pass;
-	}
-	public function getNombreUsuario(){
-		return $this->nombreUsuario;
-	}
-	public function getFrase_pass(){
-		return $this->frase_pass;
-	}
-	
-	public function setUltimas_4pass($param){
-		$this->ultimas_4pass=$param;
-	}
-	
-	public function setFrase_passs($param){
-		$this->frase_pass=$param;
-	}
-	
-	public function validarContraseña($pass){
-		$resp = false;
-		if (strcmp($pass , $this->getContrasenia())==0)
-			$resp=true;
-		return $resp;
-	}
-	
-	private function actualizarArregloPass($pass){
-		$arregloPass =$this->getUltimas_4pass();
-		if (count($arregloPass)==4){
-			array_shift($arregloPass); // quitamos el primer elemento
-		}
-		array_push($arregloPass,$pass);// en la ultima posicion del arreglo
-		$this->setUltimas_4pass($arregloPass);
-		
-		
-	}
-	
-	public function cambiarContrasenia($pass_nueva,$frase_nueva){
-		$resp=false;
-		$esta=false;
-		$i=0;
-		$arregloPass=$this->getUltimas_4pass();
-		while (!$esta and $i<count($arregloPass)){
-			if (strcmp($arregloPass[$i],$pass_nueva)==0){
-				$esta =true;
-				//echo "\n son iguales ".$arregloPass[$i]. " con ".$pass_nueva;
-			}
-		$i++;
-		}
-		if (! $esta){
-			echo "modificar pass";
-			$this->setContrasenia($pass_nueva);
-			$this->setFrase_passs($frase_nueva);
-			$this->actualizarArregloPass($pass_nueva);
-			$resp=true;
-		}
-		
-		return $resp;
-	}
-/*	public function __toString(){
-		
-		$cadena = "usuario:". $this->getNombreUsuario() ."\n".
-				" pass:".$this->getContrasenia() ."\n".
-				" frase:".$this->getFrase_pass() ."\n";
-		$arregloPass=$this->getUltimas_4pass();
-		for ($i=0;$i<count($arregloPass);$i++  ){
-				$cadena.="pass ".$i." : ".$arregloPass[$i]."\n";
-		}
-		return $cadena;
-	}*/
+    private $nombreUsuario;
+    private $passwordAnterior;
+    private $passwordActual;
+    private $frase;
+
+    public function __construct($nom, $passAnt, $passAct, $txt)
+    {
+        $this->nombreUsuario = $nom;
+        $this->passwordAnterior = $passAnt;
+        $this->passwordActual = $passAct;
+        $this->frase = $txt;
+    }
+
+    public function getNombreUsuario()
+    {
+        return $this->nombreUsuario;
+    }
+
+    public function getPasswordActual()
+    {
+        return $this->passwordActual;
+    }
+
+    public function getPasswordAnterior()
+    {
+        return $this->passwordAnterior;
+    }
+
+    public function getFrase()
+    {
+        return $this->frase;
+    }
+
+    public function setNombreUsuario($n)
+    {
+        $this->nombreUsuario = $n;
+    }
+
+    public function setPasswordActual($p)
+    {
+        $this->passwordActual = $p;
+    }
+
+    public function setPasswordAnterior($p)
+    {
+        $this->getPasswordAnterior = $p;
+    }
+
+    public function setFrase($f)
+    {
+        $this->frase = $f;
+    }
+
+    public function __toString()
+    {
+        return "\nNombre: " . $this->getNombreUsuario() . "\nContraseña: " . $this->getPasswordActual() . "\nFrase: " . $this->getFrase() . "\n";
+    }
+
+    public function comprobarPassword($nueva)
+    {
+        $longitud = count($this->passwordAnterior);
+        $existe = false;
+        $i = 0;
+        while (($i < $longitud) && (!$existe)) {
+            if ($this->passwordAnterior[$i] == $nueva) {
+                $existe = true;
+            }
+            $i++;
+        }
+        return $existe;
+    }
+
+    public function cambiarPassword($nuevoPassword)
+    {
+        $longitud = count($this->passwordAnterior);
+        $copiaArreglo = $this->getPasswordAnterior();
+        //print_r($copiaArreglo);
+        $i = 0;
+        while ($i < $longitud) {
+            if ($i == $longitud - 1) {
+                $this->passwordAnterior[$i] = $nuevoPassword;
+            } else {
+                $this->passwordAnterior[$i] = $copiaArreglo[$i + 1];
+            }
+            $i++;
+        }
+        $this->setPasswordActual($nuevoPassword);
+        return $this->passwordAnterior;
+    }
+
+    public function recordar($usuario)
+    {
+        if ($this->getNombreUsuario() == $usuario) {
+            $recordatorio = $this->getFrase();
+        }
+        return $recordatorio;
+    }
+
 }
