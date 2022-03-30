@@ -1,41 +1,40 @@
 <?php
-//definimos la clase
+
 class Persona
 {
-    //atributos
-private $nombre;
-private $apellido;
-private $documento;
-//primer metodo --> metodo construc
-public function __construct($nombre,$apellido,$documento,){
-    $this->nombre=$nombre;
-    $this->apellido=$apellido;
-    $this->documeto=$documento;
-}
-// 2do metodos de accesos get
-public function getNombre(){
-    return $this->nombre;
-}
-public function getApellido(){
-    return $this->apellido;
-}
-public function getDocumento(){
-    return $this->documento;
-}
-//metodos de acceso set
-public function setNombre($nombre){
-    $this->nombre=$nombre;
-}
-public function setApellido($apellido){
-    $this->apellido=$apellido;
-}
-public function setDocumento($documento){
-    $this->documento=$documento;
-}
-// este no se si es un metodo 
- public function _toString(){
-     return "(".$this->getNombre().",".$this->getApellido().",".$this->getDocumento().")\n";
-} 
-}
+    
+  private $nombre;
+  private $apellido;
+  private $dni;
 
+  public function __construct($n,$a,$d,){
+      $this->nombre=$n;
+      $this->apellido=$a;
+      $this->dni=$d;
+  }
+  
+  public function getNombre(){
+      return $this->nombre;
+  }
+  public function getApellido(){
+      return $this->apellido;
+  }
+  public function getDni(){
+      return $this->dni;
+  }
+  
+  public function setNombre($n){
+      $this->nombre=$n;
+  }
+  public function setApellido($a){
+      $this->apellido=$a;
+  }
+  public function setDni($d){
+      $this->dni=$d;
+  }
+  // este no se si es un metodo 
+   public function _toString(){
+       return "(".$this->getNombre().",".$this->getApellido().",".$this->getDni().")\n";
+  } 
+  }
 
