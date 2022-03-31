@@ -6,17 +6,17 @@ class Teatro{
 
     
     public function getNombreTeatro(){
-        return $this->nombreTeatro;
+        return $this->nombreteatro;
     }
     public function getDireccion(){
         return $this->direccion;
     }
-    public function getFuncion($index,$valor){
-        return $this->funcion[$index][$valor];
+    public function getFuncion(){
+        return $this->funcion;
     }
 
-    public function setFuncion($dato,$index,$valor){
-        $this->funcion[$index][$valor] = $dato;
+    public function setFuncion($valor){
+        $this->funcion = $valor;
     }
     public function setNombreTeatro($nombreTeatro){
         $this->nombreTeatro = $nombreTeatro;
