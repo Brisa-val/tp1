@@ -1,17 +1,17 @@
 <?php
 
 class viaje{
-    private $codigo;
-    private $destino;
-    private $maximoPasajeros;
-    private $cantidadPasajeros;
+    private string $codigo;
+    private string $destino;
+    private int $maximoPasajeros;
+    private array $Pasajeros=array();
 
-    public function __construct($codigo,$destino,$maximoPasajeros,$cantidadPasajeros)
+    public function __construct($codigo,$destino,$maximoPasajeros,$arrayPasajeros)
     {
         $this->codigo = $codigo;
         $this->destino = $destino;
         $this->maximoPasajeros= $maximoPasajeros;
-        $this->cantidadPasajeros =$cantidadPasajeros;
+        $this->Pasajeros =$arrayPasajeros;
     }
      /**
      * Se muestra la informacion del viaje
@@ -19,14 +19,20 @@ class viaje{
      */
     public function info()
     {
-        $cantidadPasajeros = count($this->pasajeros);
+        $cantidadPasajero = count($this->Pasajeros);
 
-        echo "codigo: " . $this->codigo;
-        echo "destino: ". $this->destino;
-        echo "pasajeros: " . $cantidadPasajeros . " de " . $this->maximoPasajeros . " como maximo";
-        echo "listado de pasajeros:";
-        print_r($this->pasajeros);
-        
+        //$cantidadPasajeros = count($this->pasajero);
+        $salida= "*****************" ." \n ";
+        $salida.= "Codigo: " . $this->codigo." \n ";
+        $salida.= "Destino: ". $this->destino." \n ";
+        $salida.= "Maximo pasajero: ". $this->maximoPasajeros." \n ";
+        $salida.= "Pasajero" ." \n ";
+        $salida.= "Nombre: " . $this->pasajero["Nombre"]." \n ";
+        $salida.= "Apellido: " . $this->pasajero["Apellido"]." \n ";
+        $salida.= "Dni: " . $this->pasajero["Dni"]." \n ";
+        $salida.= "**********************" ." \n ";
+
+        return $salida;
     }
 
     /**
@@ -101,15 +107,18 @@ class viaje{
      * @param int
      * @return void
      */ 
-    public function addPasajeros($nombre,$apellido,$documento)
+    public function getPasajero()
     {
-        $this->cantidadPasajeros[] = [
-                                       "nombre"=>$nombre,
-                                       "apellido"=>$apellido,
-                                       "documento"=> $documento
-                                    ];
+        return $this->pasajero;
+    }
+    public function setPasajeros($nombre,$apellido,$documento)
+    {
+        $this->Pasajero["nombre"]=$nombre;
+        $this->pasajero["apellido"]=$apellido;
+        $this->pasajero["documento"]=$documento;
     }
 }
+
 
 
   
